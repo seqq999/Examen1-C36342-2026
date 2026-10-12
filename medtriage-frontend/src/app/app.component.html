@@ -1,0 +1,15 @@
+<header class="navbar">
+  <div class="navbar-brand">MedTriage</div>
+
+  <nav>
+    <a routerLink="/citas" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+      Citas
+    </a>
+
+    <a routerLink="/nueva-cita" routerLinkActive="active"> Nueva cita </a>
+  </nav>
+</header>
+
+<main>
+  <router-outlet></router-outlet>
+</main>

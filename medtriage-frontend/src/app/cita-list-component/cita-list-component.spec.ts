@@ -1,0 +1,22 @@
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+
+import { CitaListComponent } from './cita-list-component';
+
+describe('CitaListComponent', () => {
+  let component: CitaListComponent;
+  let fixture: ComponentFixture<CitaListComponent>;
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [CitaListComponent],
+    }).compileComponents();
+
+    fixture = TestBed.createComponent(CitaListComponent);
+    component = fixture.componentInstance;
+    await fixture.whenStable();
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+});
