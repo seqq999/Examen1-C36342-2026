@@ -1,1 +1,135 @@
-<p>cita-form-component works!</p>
+<section class="form-page">
+  <div class="form-header">
+    <p class="eyebrow">MEDTRIAGE</p>
+    <h1>Registrar nueva cita</h1>
+    <p>Completa la información del paciente y asigna la prioridad del triaje.</p>
+  </div>
+
+  <form #citaForm="ngForm" class="appointment-form" (ngSubmit)="guardarCita()">
+    <div class="form-section">
+      <h2>Información del paciente</h2>
+
+      <div class="form-grid">
+        <div class="field full-width">
+          <label for="pacienteNombre">Nombre completo</label>
+          <input
+            id="pacienteNombre"
+            name="pacienteNombre"
+            type="text"
+            placeholder="Ej. Ana Rodríguez"
+            [(ngModel)]="paciente.nombre"
+            required
+          />
+        </div>
+
+        <div class="field">
+          <label for="identificacion">Identificación</label>
+          <input
+            id="identificacion"
+            name="identificacion"
+            type="text"
+            placeholder="Ej. 1-2345-6789"
+            [(ngModel)]="paciente.identificacion"
+          />
+        </div>
+
+        <div class="field">
+          <label for="telefono">Teléfono</label>
+          <input
+            id="telefono"
+            name="telefono"
+            type="tel"
+            placeholder="Ej. 8888-8888"
+            [(ngModel)]="paciente.telefono"
+          />
+        </div>
+
+        <div class="field full-width">
+          <label for="correo">Correo electrónico</label>
+          <input
+            id="correo"
+            name="correo"
+            type="email"
+            placeholder="paciente@correo.com"
+            [(ngModel)]="paciente.correo"
+          />
+        </div>
+      </div>
+    </div>
+
+    <div class="form-section">
+      <h2>Información médica</h2>
+
+      <div class="form-grid">
+        <div class="field">
+          <label for="doctor">Doctor</label>
+          <input
+            id="doctor"
+            name="doctor"
+            type="text"
+            placeholder="Nombre del doctor"
+            [(ngModel)]="doctor.nombre"
+            required
+          />
+        </div>
+
+        <div class="field">
+          <label for="especialidad">Especialidad</label>
+          <input
+            id="especialidad"
+            name="especialidad"
+            type="text"
+            placeholder="Ej. Medicina general"
+            [(ngModel)]="doctor.especialidad"
+          />
+        </div>
+
+        <div class="field">
+          <label for="prioridad">Prioridad</label>
+          <select id="prioridad" name="prioridad" [(ngModel)]="prioridad" required>
+            <option value="ALTA">Alta</option>
+            <option value="MEDIA">Media</option>
+            <option value="BAJA">Baja</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="monto">Monto</label>
+          <div class="money-input">
+            <span>₡</span>
+            <input
+              id="monto"
+              name="monto"
+              type="number"
+              min="0"
+              placeholder="0"
+              [(ngModel)]="monto"
+              required
+            />
+          </div>
+        </div>
+
+        <div class="field full-width">
+          <label for="motivo">Motivo de la consulta</label>
+          <textarea
+            id="motivo"
+            name="motivo"
+            rows="5"
+            placeholder="Describe brevemente el motivo de la consulta..."
+            [(ngModel)]="motivo"
+            required
+          >
+          </textarea>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <a routerLink="/citas" class="cancel-button"> Cancelar </a>
+
+      <button type="submit" class="submit-button" [disabled]="citaForm.invalid">
+        Registrar cita
+      </button>
+    </div>
+  </form>
+</section>
