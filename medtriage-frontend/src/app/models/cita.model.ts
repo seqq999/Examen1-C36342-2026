@@ -1,32 +1,35 @@
+export interface CitaMedica {
+  id: number;
+  codigoCita: string;
+  nombrePaciente: string;
+  nombreDoctor: string;
+  nivelPrioridad: string;
+  motivoConsulta: string;
+  estado: string;
+  montoConsulta: number;
+  fechaCita: string;
+}
+
 export interface Doctor {
-  id?: number;
+  id: number;
   nombre: string;
   especialidad?: string;
 }
 
 export interface Paciente {
-  id?: number;
+  id: number;
   nombre: string;
   identificacion?: string;
-  telefono?: string;
-  correo?: string;
-}
-
-export interface CitaMedica {
-  id: number;
-  paciente: Paciente;
-  doctor: Doctor;
-  prioridad: string;
-  motivo: string;
-  monto: number;
-  estado: string;
-  fechaCreacion?: string;
 }
 
 export interface CrearCitaPayload {
-  paciente: Paciente;
-  doctor: Doctor;
-  prioridad: string;
-  motivo: string;
-  monto: number;
+  pacienteId: number;
+  doctorId: number;
+  nivelPrioridad: string;
+  motivoConsulta: string;
+  montoConsulta: number;
+}
+
+export interface ActualizarEstadoPayload {
+  nuevoEstado: string;
 }

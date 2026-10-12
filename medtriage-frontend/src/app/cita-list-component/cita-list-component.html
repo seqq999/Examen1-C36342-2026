@@ -2,7 +2,9 @@
   <div class="page-header">
     <div>
       <p class="eyebrow">MEDTRIAGE</p>
+
       <h1>Dashboard de citas</h1>
+
       <p class="description">Consulta y administra las citas médicas registradas.</p>
     </div>
 
@@ -24,9 +26,16 @@
     </div>
   </div>
 
-  <div class="table-card">
+  <p class="error" *ngIf="error()">
+    {{ error() }}
+  </p>
+
+  <p class="loading" *ngIf="cargando()">Cargando citas...</p>
+
+  <div class="table-card" *ngIf="!cargando()">
     <div class="table-header">
       <h2>Citas registradas</h2>
+
       <span class="total"> {{ citasFiltradas().length }} resultado(s) </span>
     </div>
 
@@ -34,54 +43,65 @@
       <table>
         <thead>
           <tr>
+            <th>Código</th>
             <th>Paciente</th>
             <th>Doctor</th>
             <th>Prioridad</th>
             <th>Motivo</th>
             <th>Monto</th>
             <th>Estado</th>
+            <th>Acción</th>
           </tr>
         </thead>
 
         <tbody>
           <tr *ngFor="let cita of citasFiltradas()">
             <td>
-              <strong>{{ cita.paciente?.nombre }}</strong>
-              <small *ngIf="cita.paciente?.identificacion">
-                {{ cita.paciente.identificacion }}
-              </small>
+              {{ cita.codigoCita }}
             </td>
 
             <td>
-              <strong>{{ cita.doctor?.nombre }}</strong>
-              <small *ngIf="cita.doctor?.especialidad">
-                {{ cita.doctor.especialidad }}
-              </small>
+              {{ cita.nombrePaciente }}
             </td>
 
             <td>
-              <span class="badge" [ngClass]="'priority-' + cita.prioridad?.toLowerCase()">
+              {{ cita.nombreDoctor }}
+            </td>
+
+            <td>
+              <span class="badge" [ngClass]="'priority-' + clasePrioridad(cita.nivelPrioridad)">
                 {{ cita.nivelPrioridad }}
               </span>
             </td>
 
             <td class="reason">
-              {{ cita.motivo }}
+              {{ cita.motivoConsulta }}
             </td>
 
             <td>
-              {{ cita.monto | currency: 'CRC' : 'symbol' : '1.0-0' }}
+              {{ cita.montoConsulta | currency: 'CRC' : 'symbol' : '1.0-0' }}
             </td>
 
             <td>
-              <span class="badge status-badge" [ngClass]="'status-' + cita.estado?.toLowerCase()">
+              <span class="badge status-badge" [ngClass]="'status-' + claseEstado(cita.estado)">
                 {{ cita.estado }}
               </span>
+            </td>
+
+            <td>
+              <button
+                type="button"
+                class="small-button"
+                [disabled]="!obtenerSiguienteEstado(cita.estado)"
+                (click)="avanzarEstado(cita)"
+              >
+                Avanzar
+              </button>
             </td>
           </tr>
 
           <tr *ngIf="citasFiltradas().length === 0">
-            <td colspan="6" class="empty-message">No hay citas para la prioridad seleccionada.</td>
+            <td colspan="8" class="empty-message">No hay citas para la prioridad seleccionada.</td>
           </tr>
         </tbody>
       </table>

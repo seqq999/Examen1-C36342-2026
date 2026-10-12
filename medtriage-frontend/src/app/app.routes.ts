@@ -1,7 +1,7 @@
 import { Routes } from '@angular/router';
 
-import { CitaListComponent } from './cita-list-component/cita-list-component';
 import { CitaFormComponent } from './cita-form-component/cita-form-component';
+import { CitaListComponent } from './cita-list-component/cita-list-component';
 
 export const routes: Routes = [
   {
